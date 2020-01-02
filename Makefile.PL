@@ -65,8 +65,10 @@ my %WriteMakefile = (
 		},
 
 	'PREREQ_PM' => {
-		'Carp' => '0',
+		'String::Sprintf' => '0',
 		},
+
+	'EXE_FILES' => [ qw( script/url ) ],
 
 	'META_MERGE' => {
 		'meta-spec' => { version => 2 },
