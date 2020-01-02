@@ -79,6 +79,7 @@ our $VERSION = '1.001';
 
 my $formatter = String::Sprintf->formatter(
 	a   => sub ( $w, $v, $V, $l ) { $V->[0]->path      },
+	f   => sub ( $w, $v, $V, $l ) { $V->[0]->fragment  },
 	h   => sub ( $w, $v, $V, $l ) { $V->[0]->host      },
 	i   => sub ( $w, $v, $V, $l ) { $V->[0]->ihost     },
 	p   => sub ( $w, $v, $V, $l ) { $V->[0]->port      },
