@@ -63,4 +63,7 @@ You can use this code under the terms of the Artistic License 2.
 
 =cut
 
+use Encode qw(decode_utf8);
+@ARGV = map { decode_utf8($_, 1) } @ARGV;
+
 App::url->run( @ARGV );
