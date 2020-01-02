@@ -51,16 +51,12 @@ subtest host => sub {
 	};
 
 subtest ihost => sub {
-	#state $rc = require Unicode::Normalize;
-	my @tests =
-		#map {  $_->[0] = Unicode::Normalize::NFC($_->[0]); $_ }
-		(
+	my @tests = (
 		[ qw( http://www.example.com/a/b/c www.example.com     ) ],
 		[ qw( http://bücher.ch/a/b/c       xn--bcher-kva.ch    ) ],
 		[ qw( http://mañana.com/a/b/c      xn--maana-pta.com   ) ],
 		[ qw( http://☃-⌘.com/a/b/c         xn----dqo34k.com    ) ],
-		[ qw( http://éxàmple.com/a/b/c     xn—xmple-rqa5d.com  ) ],
-		[ qw( http://☃-⌘.com/a/b/c         xn----dqo34k.com    ) ],
+		[ qw( http://éxàmple.com/a/b/c     xn--xmple-rqa5d.com ) ],
 		);
 
 	run_table( '%i', \@tests )
@@ -124,12 +120,12 @@ subtest query => sub {
 	no warnings qw( qw );
 
 	my @tests = (
-		[ qw( http://www.example.com/a/b/c  ) ],
-		[ qw( https://www.example.net/g/h/d?xyz  xyz) ],
-		[ qw( https://www.example.net/g/h/d?xyz+abc  xyz+abc) ],
-		[ qw( https://www.example.net/g/h/d?one=1&two=2  one=1&two=2) ],
-		[ qw( https://www.example.net/g/h/d?one=1;two=2  one=1&two=2) ],
-		[ qw( https://www.example.net/g/h/d#frag  ) ],
+		[ qw( http://www.example.com/a/b/c                           ) ],
+		[ qw( https://www.example.net/g/h/d?xyz          xyz         ) ],
+		[ qw( https://www.example.net/g/h/d?xyz+abc      xyz+abc     ) ],
+		[ qw( https://www.example.net/g/h/d?one=1&two=2  one=1&two=2 ) ],
+		[ qw( https://www.example.net/g/h/d?one=1;two=2  one=1;two=2 ) ],
+		[ qw( https://www.example.net/g/h/d#frag                     ) ],
 		);
 
 	run_table( '%q', \@tests )
