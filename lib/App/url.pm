@@ -1,10 +1,8 @@
-package App::url;
-use strict;
-
-use warnings;
-no warnings;
-
-our $VERSION = '0.001_01';
+#!/usr/bin/perl
+use v5.26;
+use Mojo::Base -strict, -signatures;
+use Mojo::URL;
+use String::Sprintf;
 
 =encoding utf8
 
@@ -14,53 +12,71 @@ App::url - format a URL according to a sprintf-like template
 
 =head1 SYNOPSIS
 
-	use App::url;
+	$ url '%H' http://www.example.com/a/b/c
+	www.example.com
+
+	$ url '%P' http://www.example.com/a/b/c
+	/a/b/c
+
+	$ url '%P' http://www.example.com/a/b/c
+	/a/b/c
 
 =head1 DESCRIPTION
 
+Decompose the URL and reformat it according to
+
+=head2 The formats
+
 =over 4
 
-=item new
+=item * C<%a> - the path,
 
-=cut
+=item * C<%f> - the fragment
 
-sub new {
+=item * C<%h> - the hostname
 
-	}
+=item * C<%h> - the hostname in punycode
 
-=item init
+=item * C<%P> - the password of the userinfo portion
 
-=cut
+=item * C<%p> - the port
 
-sub init {
+=item * C<%q> - the query string
 
-	}
+=item * C<%s> - the scheme
+
+=item * C<%u> - the complete URL
+
+=item * C<%U> - the username of the userinfo portion
 
 =back
 
-=head1 TO DO
+=head1 COPYRIGHT
 
+Copyright © 2020, brian d foy, all rights reserved.
 
-=head1 SEE ALSO
+=head1 LICENSE
 
-
-=head1 SOURCE AVAILABILITY
-
-This source is in Github:
-
-	http://github.com/briandfoy/app-url
-
-=head1 AUTHOR
-
-Frank Serpico, C<< <serpico@example.com> >>
-
-=head1 COPYRIGHT AND LICENSE
-
-
-Copyright (c) 2020, brian d foy, All Rights Reserved.
-
-You may redistribute this under the terms of the Artistic License 2.0.
+You can use this code under the terms of the Artistic License 2.
 
 =cut
 
-1;
+our $VERSION = '1.001';
+
+my $formatter = String::Sprintf->formatter(
+	a   => sub ( $w, $v, $V, $l ) { $V->[0]->path      },
+	h   => sub ( $w, $v, $V, $l ) { $V->[0]->host      },
+	i   => sub ( $w, $v, $V, $l ) { $V->[0]->ihost     },
+	p   => sub ( $w, $v, $V, $l ) { $V->[0]->port      },
+	P   => sub ( $w, $v, $V, $l ) { $V->[0]->password  },
+	'q' => sub ( $w, $v, $V, $l ) { $V->[0]->query     },
+	's' => sub ( $w, $v, $V, $l ) { $V->[0]->protocol  },
+	U   => sub ( $w, $v, $V, $l ) { $V->[0]->username  },
+	u   => sub ( $w, $v, $V, $l ) { $V->[0]->to_string },
+	);
+
+sub run ( $template, @urls ) {
+	foreach my $url ( @urls ) {
+		say $formatter->sprintf( $template, Mojo::URL->new($url) );
+		}
+	}
