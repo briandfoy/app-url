@@ -51,6 +51,17 @@ Decompose the URL and reformat it according to
 
 =back
 
+=head2 Methods
+
+=over 4
+
+=item * run( TEMPLATE, ARRAY )
+
+Format each URL in ARRAY according to TEMPLATE and output the result
+with one line per URL.
+
+=back
+
 =head1 COPYRIGHT
 
 Copyright © 2020, brian d foy, all rights reserved.
