@@ -60,8 +60,8 @@ Decompose the URL and reformat it according to
 
 =item * run( TEMPLATE, ARRAY )
 
-Format each URL in ARRAY according to TEMPLATE and output the result
-with one line per URL.
+Format each URL in ARRAY according to TEMPLATE and return an array
+reference
 
 =back
 
@@ -91,7 +91,11 @@ my $formatter = String::Sprintf->formatter(
 	);
 
 sub run ( $class, $template, @urls ) {
+	my @strings;
+
 	foreach my $url ( @urls ) {
-		say $formatter->sprintf( $template, Mojo::URL->new($url) );
+		push @strings, $formatter->sprintf( $template, Mojo::URL->new($url) );
 		}
+
+	return \@strings;
 	}
