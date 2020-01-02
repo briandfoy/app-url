@@ -1,5 +1,6 @@
 use v5.26;
 use Mojo::Base -strict, -signatures;
+use open qw(:std :utf8);
 use Test::More 1;
 
 my $program = 'blib/script/url';
