@@ -90,7 +90,7 @@ my $formatter = String::Sprintf->formatter(
 	u   => sub ( $w, $v, $V, $l ) { $V->[0]->to_string },
 	);
 
-sub run ( $template, @urls ) {
+sub run ( $class, $template, @urls ) {
 	foreach my $url ( @urls ) {
 		say $formatter->sprintf( $template, Mojo::URL->new($url) );
 		}
