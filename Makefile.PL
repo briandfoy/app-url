@@ -66,6 +66,7 @@ my %WriteMakefile = (
 
 	'PREREQ_PM' => {
 		'String::Sprintf' => '0',
+		'Mojolicious'     => '0',
 		},
 
 	'EXE_FILES' => [ qw( script/url ) ],
