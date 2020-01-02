@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 use v5.26;
+
+package App::url;
+
 use Mojo::Base -strict, -signatures;
 use Mojo::URL;
 use String::Sprintf;
