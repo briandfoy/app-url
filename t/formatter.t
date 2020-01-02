@@ -137,8 +137,8 @@ subtest query => sub {
 
 sub run_table ($template, $tests) {
 	foreach my $test ( $tests->@* ) {
-		chomp( my $output = `$program '$template' $test->[0]` );
-		is( $output, $test->[1] // '', 'Host for $test->[0] is correct' );
+		chomp( my $output = `$program "$template" "$test->[0]"` );
+		is( $output, $test->[1] // '', "Value for $test->[0] is correct" );
 		}
 	}
 
