@@ -1,0 +1,15 @@
+Changes
+INSTALL.SKIP
+lib/App/url.pm
+LICENSE
+Makefile.PL
+MANIFEST			This list of files
+MANIFEST.SKIP
+README.pod
+script/url
+t/compile.t
+t/formatter.t
+t/load.t
+t/pod.t
+t/pod_coverage.t
+t/test_manifest
