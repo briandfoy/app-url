@@ -3,7 +3,9 @@ use Mojo::Base -strict, -signatures;
 use open qw(:std :utf8);
 use Test::More 1;
 
-my $program = 'blib/script/url';
+use File::Spec::Functions;
+
+my $program = catfile( qw( blib script url ) );
 
 subtest sanity => sub {
 	my $class = 'App::url';

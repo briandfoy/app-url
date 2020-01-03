@@ -87,7 +87,7 @@ You can use this code under the terms of the Artistic License 2.
 
 =cut
 
-our $VERSION = '1.001';
+our $VERSION = '1.001_01';
 
 my $formatter = String::Sprintf->formatter(
 	a   => sub ( $w, $v, $V, $l ) { $V->[0]->path      },
