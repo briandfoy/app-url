@@ -10,6 +10,45 @@ subtest sanity => sub {
 	use_ok( $class );
 	can_ok( $class, 'run' );
 	ok( -e $program, 'The program exists' );
+	like( `$^X -c $program 2>&1`, qr/syntax OK/, "$program compiles" );
+	};
+
+subtest basic => sub {
+	my $url = 'http://www.example.com/a/b/c?o=987&p=234';
+	my $output;
+
+	subtest newline => sub {
+		chomp( $output = `$program "%n" "$url"` );
+		is( $output, "\n", "Value for newline is correct" );
+
+		chomp( $output = `$program "abc%ndef" "$url"` );
+		is( $output, "abc\ndef", "Value for newline is correct" );
+		};
+	subtest tab => sub {
+		chomp( $output = `$program "%t" "$url"` );
+		is( $output, "\t", "Value for tab is correct" );
+
+		chomp( $output = `$program "456%t987" "$url"` );
+		is( $output, "456\t987", "Value for tab is correct" );
+		};
+	subtest percent => sub {
+		chomp( $output = `$program "%%" "$url"` );
+		is( $output, '%', "Value for percent is correct" );
+
+		chomp( $output = `$program "%%" "$url"` );
+		is( $output, '%', "Value for percent is correct" );
+		};
+
+	};
+
+subtest unknown => sub {
+	my $url = 'http://www.example.com/a/b/c?o=987&p=234';
+	my $output;
+
+	foreach my $specifier ( qw(X g d) ) {
+		chomp( $output = `$program "%$specifier" "$url" 2>&1` );
+		like( $output, qr/Invalid specifier/, "Warning for unknown specifier <$specifier>" );
+		}
 	};
 
 subtest url => sub {
