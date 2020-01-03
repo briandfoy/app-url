@@ -54,6 +54,18 @@ Decompose the URL and reformat it according to
 
 =back
 
+There are also some bonus formats unrelated to the URL:
+
+=over 4
+
+=item * C<%n> - newline
+
+=item * C<%t> - tab
+
+=item * C<%%> - literal percent
+
+=back
+
 =head2 Methods
 
 =over 4
@@ -88,6 +100,10 @@ my $formatter = String::Sprintf->formatter(
 	's' => sub ( $w, $v, $V, $l ) { $V->[0]->protocol  },
 	U   => sub ( $w, $v, $V, $l ) { $V->[0]->username  },
 	u   => sub ( $w, $v, $V, $l ) { $V->[0]->to_string },
+
+	n   => sub { "\n" },
+	t   => sub { "\t" },
+	'%' => sub { '%'  },
 	);
 
 sub run ( $class, $template, @urls ) {
