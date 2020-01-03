@@ -104,6 +104,8 @@ my $formatter = String::Sprintf->formatter(
 	n   => sub { "\n" },
 	t   => sub { "\t" },
 	'%' => sub { '%'  },
+
+	'*' => sub ( $w, $v, $V, $l ) { warn "Invalid specifier <$l>\n" },
 	);
 
 sub run ( $class, $template, @urls ) {
