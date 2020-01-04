@@ -15,8 +15,11 @@ App::url - format a URL according to a sprintf-like template
 
 =head1 SYNOPSIS
 
-	$ url '%H' http://www.example.com/a/b/c
+	$ url '%h' http://www.example.com/a/b/c
 	www.example.com
+
+	$ url '%H' http://www.example.com/a/b/c
+	www
 
 	$ url '%P' http://www.example.com/a/b/c
 	/a/b/c
@@ -36,9 +39,11 @@ Decompose the URL and reformat it according to
 
 =item * C<%f> - the fragment
 
-=item * C<%h> - the hostname
+=item * C<%h> - the hostname, with domain info
 
-=item * C<%h> - the hostname in punycode
+=item * C<%H> - the hostname without domain info
+
+=item * C<%i> - the hostname in punycode
 
 =item * C<%P> - the password of the userinfo portion
 
@@ -93,6 +98,7 @@ my $formatter = String::Sprintf->formatter(
 	a   => sub ( $w, $v, $V, $l ) { $V->[0]->path      },
 	f   => sub ( $w, $v, $V, $l ) { $V->[0]->fragment  },
 	h   => sub ( $w, $v, $V, $l ) { $V->[0]->host      },
+	H   => sub ( $w, $v, $V, $l ) { ( split /\./, $V->[0]->host )[0] },
 	i   => sub ( $w, $v, $V, $l ) { $V->[0]->ihost     },
 	p   => sub ( $w, $v, $V, $l ) { $V->[0]->port      },
 	P   => sub ( $w, $v, $V, $l ) { $V->[0]->password  },

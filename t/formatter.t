@@ -91,6 +91,16 @@ subtest host => sub {
 	run_table( '%h', \@tests )
 	};
 
+subtest host_no_domain => sub {
+	my @tests = (
+		[ qw( http://www.example.com/a/b/c         www       ) ],
+		[ qw( http://foo.www.foo.example.net/a/b/c foo       ) ],
+		[ qw( http://briandfoy.github.io/a/b/c     briandfoy ) ],
+		);
+
+	run_table( '%H', \@tests )
+	};
+
 subtest ihost => sub {
 	my @tests = (
 		[ qw( http://www.example.com/a/b/c www.example.com     ) ],
