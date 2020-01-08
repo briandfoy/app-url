@@ -38,7 +38,7 @@ Decompose the URL and reformat it according to
 
 =over 4
 
-=item * C<%a> - the path,
+=item * C<%a> - the path
 
 =item * C<%f> - the fragment
 
