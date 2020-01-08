@@ -63,7 +63,12 @@ You can use this code under the terms of the Artistic License 2.
 
 =cut
 
-use Encode qw(decode_utf8);
-@ARGV = map { decode_utf8($_, 1) } @ARGV;
+use Encode qw(decode);
+use I18N::Langinfo qw(langinfo CODESET);
 
-say join "\n", App::url->run( @ARGV )->@*;
+@ARGV = map { decode( langinfo(CODESET), $_ ) } @ARGV;
+
+my $results = App::url->run( @ARGV );
+exit if $results->@* == 0;
+
+say join "\n", $results->@*;
