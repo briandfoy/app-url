@@ -48,6 +48,8 @@ Decompose the URL and reformat it according to
 
 =item * C<%i> - the hostname in punycode
 
+=item * C<%I> - space-separated list of IP addresses for the host
+
 =item * C<%P> - the password of the userinfo portion
 
 =item * C<%p> - the port
@@ -97,6 +99,7 @@ You can use this code under the terms of the Artistic License 2.
 
 =cut
 
+no warnings 'uninitialized';
 
 my $formatter = String::Sprintf->formatter(
 	a   => sub ( $w, $v, $V, $l ) { $V->[0]->path      },
@@ -104,6 +107,12 @@ my $formatter = String::Sprintf->formatter(
 	h   => sub ( $w, $v, $V, $l ) { $V->[0]->host      },
 	H   => sub ( $w, $v, $V, $l ) { ( split /\./, $V->[0]->host )[0] },
 	i   => sub ( $w, $v, $V, $l ) { $V->[0]->ihost     },
+	I   => sub ( $w, $v, $V, $l ) {
+		state $rc = require Socket;
+		my @addresses = gethostbyname( $V->[0]->host );
+		@addresses = map { Socket::inet_ntoa($_) } @addresses[4..$#addresses];
+		"@addresses";
+		},
 	p   => sub ( $w, $v, $V, $l ) { $V->[0]->port      },
 	P   => sub ( $w, $v, $V, $l ) { $V->[0]->password  },
 	'q' => sub ( $w, $v, $V, $l ) { $V->[0]->query     },
