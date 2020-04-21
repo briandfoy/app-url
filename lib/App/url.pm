@@ -3,7 +3,7 @@ use v5.26;
 
 package App::url;
 
-our $VERSION = '1.002';
+our $VERSION = '1.003';
 
 use Carp qw(carp);
 use Mojo::Base -strict, -signatures;
@@ -101,6 +101,10 @@ You can use this code under the terms of the Artistic License 2.
 
 no warnings 'uninitialized';
 
+# $w - width of field
+# $v - value that corresponds to position in template
+# $V - list of all values
+# $l - letter
 my $formatter = String::Sprintf->formatter(
 	a   => sub ( $w, $v, $V, $l ) { $V->[0]->path      },
 	f   => sub ( $w, $v, $V, $l ) { $V->[0]->fragment  },
@@ -113,7 +117,11 @@ my $formatter = String::Sprintf->formatter(
 		@addresses = map { Socket::inet_ntoa($_) } @addresses[4..$#addresses];
 		"@addresses";
 		},
-	p   => sub ( $w, $v, $V, $l ) { $V->[0]->port      },
+	p   => sub ( $w, $v, $V, $l ) { $V->[0]->port // do {
+			if(    $V->[0]->protocol eq 'http'  ) {  80 }
+			elsif( $V->[0]->protocol eq 'https' ) { 443 }
+			};
+	     },
 	P   => sub ( $w, $v, $V, $l ) { $V->[0]->password  },
 	'q' => sub ( $w, $v, $V, $l ) { $V->[0]->query     },
 	's' => sub ( $w, $v, $V, $l ) { $V->[0]->protocol  },
