@@ -3,7 +3,7 @@ use v5.26;
 
 package App::url;
 
-our $VERSION = '1.004';
+our $VERSION = '1.004_01';
 
 use Carp qw(carp);
 use Mojo::Base -strict, -signatures;
