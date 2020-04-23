@@ -1,5 +1,9 @@
 # Changes for App::url
 
+1.004_01 2020-04-23T13:34:17Z
+	* handle output encoding too
+
+
 1.004 2020-04-23T01:51:42Z
 	* Tests files need to realize they are UTF-8
 
