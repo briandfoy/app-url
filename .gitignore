@@ -10,3 +10,6 @@ App-url-*
 Changes\ [23]
 MANIFEST\ [23]
 *.icould
+MANIFEST*[123456789]
+Changes*[123456789]
+
