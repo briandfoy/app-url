@@ -28,9 +28,6 @@ App::url - format a URL according to a sprintf-like template
 	$ url '%P' http://www.example.com/a/b/c
 	/a/b/c
 
-	$ url '%P' http://www.example.com/a/b/c
-	/a/b/c
-
 =head1 DESCRIPTION
 
 Decompose the URL and reformat it according to
