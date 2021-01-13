@@ -43,6 +43,8 @@ jobs:
               run: |
                 cpan -M https://www.cpan.org -T .
             - name: Run tests
+              env:
+                LC_ALL: en_US.UTF-8
               run: |
                 perl Makefile.PL
                 make test
