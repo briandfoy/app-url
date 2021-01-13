@@ -29,6 +29,10 @@ jobs:
             - uses: actions/checkout@v2
             - name: Platform check
               run: uname -a
+            - name: Environment check
+              run: |
+                env
+                locale -a
             - name: Perl version check
               run: perl -V
             - name: Install cpanm and multiple modules
@@ -41,6 +45,11 @@ jobs:
               run: |
                 cpan -M https://www.cpan.org -T .
             - name: Run tests
+              env:
+                LC_ALL: C.UTF-8
+                LANG: C.UTF-8
+                LANGUAGE: C.UTF-8
               run: |
+                echo "LC_ALL" $LC_ALL
                 perl Makefile.PL
                 make test
