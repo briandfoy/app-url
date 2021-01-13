@@ -47,5 +47,6 @@ jobs:
                 LC_ALL: en_US.UTF-8
                 LANG: en_US.UTF-8
               run: |
+                echo "LC_ALL" $LC_ALL
                 perl Makefile.PL
                 make test
