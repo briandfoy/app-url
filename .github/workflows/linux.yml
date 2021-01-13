@@ -30,7 +30,9 @@ jobs:
             - name: Platform check
               run: uname -a
             - name: Environment check
-              run: env
+              run: |
+                env
+                locale -a
             - name: Perl version check
               run: perl -V
             - name: Install cpanm and multiple modules
