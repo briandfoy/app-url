@@ -64,3 +64,11 @@ jobs:
                 echo "LC_ALL" $LC_ALL
                 perl Makefile.PL
                 make test
+            - name: Run tests in parallel
+              run: |
+                perl Makefile.PL
+                HARNESS_OPTIONS=j10 make test
+            - name: Run distribution tests
+              run: |
+                perl Makefile.PL
+                make disttest
