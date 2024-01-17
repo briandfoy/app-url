@@ -89,7 +89,7 @@ reference
 
 =head1 COPYRIGHT
 
-Copyright © 2020-2021, brian d foy, all rights reserved.
+Copyright © 2020-2024, brian d foy, all rights reserved.
 
 =head1 LICENSE
 
