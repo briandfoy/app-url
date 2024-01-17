@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use v5.26;
 
-use App::url 1.008;
+use App::url 1.009;
 
 =encoding utf8
 
